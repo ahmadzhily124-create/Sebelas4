@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Input Nilai Sekolah</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #eef5ff;
+    color: #1e293b;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    background: linear-gradient(135deg, #075985, #2563eb);
+    color: white;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,.15);
+}
+
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    opacity: .9;
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    width: 94%;
+    max-width: 1250px;
+    margin: 25px auto;
+}
+
+/* ================= CARD ================= */
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 20px rgba(30,64,175,.10);
+    border: 1px solid #dbeafe;
+}
+
+.card h2 {
+    color: #075985;
+    margin-bottom: 20px;
+    border-left: 5px solid #2563eb;
+    padding-left: 12px;
+}
+
+/* ================= FORM ================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    padding: 11px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+/* ================= BUTTON ================= */
+
+.button-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    border: none;
+    padding: 11px 17px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-success {
+    background: #059669;
+    color: white;
+}
+
+.btn-warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-dark {
+    background: #334155;
+    color: white;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+}
+
+th {
+    background: #075985;
+    color: white;
+    padding: 11px;
+    font-size: 13px;
+}
+
+td {
+    border: 1px solid #cbd5e1;
+    padding: 8px;
+    text-align: center;
+}
+
+td input {
+    width: 75px;
+    text-align: center;
+    padding: 7px;
+}
+
+.subject-name {
+    width: 210px;
+    text-align: left;
+}
+
+.final-score {
+    font-weight: bold;
+    color: #075985;
+}
+
+.grade {
+    font-weight: bold;
+}
+
+/* ================= WATERMARK ================= */
+
+.watermark-setting {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.preview-box {
+    min-height: 180px;
+    border: 2px dashed #93c5fd;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: #f8fbff;
+}
+
+.preview-box img {
+    max-width: 180px;
+    max-height: 140px;
+    object-fit: contain;
+}
+
+/* ================= SIGNATURE ================= */
+
+.signature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.signature {
+    text-align: center;
+}
+
+.signature-image {
+    height: 100px;
+    margin: 15px auto;
+}
+
+.signature-image img {
+    max-height: 100px;
+    max-width: 180px;
+}
+
+.headmaster {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.signature-line {
+    width: 220px;
+    border-bottom: 1px solid #333;
+    margin: 65px auto 8px;
+}
+
+/* ================= RAPOR ================= */
+
+.report {
+    background: white;
+    padding: 45px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+}
+
+.report-watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.report-watermark img {
+    width: 420px;
+    opacity: .07;
+}
+
+.report-content {
+    position: relative;
+    z-index: 1;
+}
+
+.school-header {
+    text-align: center;
+    border-bottom: 3px double #1e3a8a;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.school-header h1 {
+    color: #075985;
+    font-size: 24px;
+}
+
+.school-header h2 {
+    color: #1e293b;
+    font-size: 19px;
+    margin-top: 5px;
+}
+
+.school-header p {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.student-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 20px;
+}
+
+.student-info div {
+    padding: 4px;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.summary-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.summary-box strong {
+    display: block;
+    color: #075985;
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 700px) {
+
+    .form-grid,
+    .watermark-setting,
+    .signature-grid,
+    .student-info {
+        grid-template-columns: 1fr;
+    }
+
+    .summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .report {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 21px;
+    }
+}
+
+/* ================= PRINT ================= */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .no-print,
+    .header,
+    .footer,
+    .card:not(.report-card) {
+        display: none !important;
+    }
+
+    .container {
+        width: 100%;
+        margin: 0;
+    }
+
+    .report-card {
+        display: block !important;
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .report {
+        border: none;
+        margin: 0;
+        padding: 15mm;
+        min-height: 100vh;
+    }
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header no-print">
+    <h1>📘 SISTEM INPUT NILAI SEKOLAH</h1>
+    <p>Administrasi Nilai & Rapor Peserta Didik</p>
+</header>
+
+<div class="container">
+
+<!-- ================= IDENTITAS SEKOLAH ================= -->
+
+<section class="card no-print">
+    <h2>🏫 Identitas Sekolah</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+            <label>Nama Sekolah</label>
+            <input type="text" id="schoolName"
+                   value="SMA NEGERI 118 JAKARTA">
+        </div>
+
+        <div class="form-group">
+            <label>NPSN</label>
+            <input type="text" id="npsn"
+                   placeholder="Masukkan NPSN">
+        </div>
+
+        <div class="form-group">
+            <label>Alamat Sekolah</label>
+            <input type="text" id="schoolAddress"
+                   placeholder="Alamat sekolah">
+        </div>
+
+        <div class="form-group">
+            <label>Tahun Pelajaran</label>
+            <input type="text" id="schoolYear"
+                   value="2026/2027">
+        </div>
+
+        <div class="form-group">
+            <label>Semester</label>
+            <select id="semester">
+                <option>Ganjil</option>
+                <option>Genap</option>
+            </select>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= DATA SISWA ================= -->
+
+<section class="card no-print">
+    <h2>👨‍🎓 Data Peserta Didik</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" id="studentName"
+                   placeholder="Nama siswa">
+        </div>
+
+        <div class="form-group">
+            <label>NISN</label>
+            <input type="text" id="nisn"
+                   placeholder="NISN">
+        </div>
+
+        <div class="form-group">
+            <label>NIS</label>
+            <input type="text" id="nis"
+                   placeholder="NIS">
+        </div>
+
+        <div class="form-group">
+            <label>Kelas</label>
+            <input type="text" id="className"
+                   value="XI.4">
+        </div>
+
+        <div class="form-group">
+            <label>Fase</label>
+            <input type="text" id="phase"
+                   value="F">
+        </div>
+
+        <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <select id="gender">
+                <option>Laki-laki</option>
+                <option>Perempuan</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Tempat Lahir</label>
+            <input type="text" id="birthPlace">
+        </div>
+
+        <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <input type="date" id="birthDate">
+        </div>
+
+        <div class="form-group">
+            <label>Nama Orang Tua/Wali</label>
+            <input type="text" id="parentName">
+        </div>
+
+        <div class="form-group">
+            <label>Wali Kelas</label>
+            <input type="text" id="homeroomTeacher"
+                   value="Drs. Sarmili">
+        </div>
+
+        <div class="form-group full">
+            <label>Kepala Sekolah</label>
+            <input type="text" id="principalName"
+                   placeholder="Nama Kepala Sekolah">
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= WATERMARK ================= -->
+
+<section class="card no-print">
+    <h2>🖼️ Logo / Watermark Sekolah</h2>
+
+    <div class="watermark-setting">
+
+        <div>
+            <p style="margin-bottom:10px;">
+                Upload gambar/logo yang ingin digunakan
+                sebagai watermark rapor.
+            </p>
+
+            <input type="file"
+                   id="watermarkInput"
+                   accept="image/*">
+
+            <br><br>
+
+            <button class="btn-danger"
+                    onclick="removeWatermark()">
+                Hapus Watermark
+            </button>
+        </div>
+
+        <div class="preview-box">
+            <span id="watermarkText">
+                Preview Watermark
+            </span>
+
+            <img id="watermarkPreview"
+                 style="display:none;">
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= NILAI ================= -->
+
+<section class="card no-print">
+    <h2>📚 Input Nilai Mata Pelajaran</h2>
+
+    <div class="button-area">
+
+        <button class="btn-primary"
+                onclick="addSubject()">
+            + Tambah Mata Pelajaran
+        </button>
+
+        <button class="btn-success"
+                onclick="calculateAll()">
+            ✓ Hitung Semua Nilai
+        </button>
+
+        <button class="btn-dark"
+                onclick="saveData()">
+            💾 Simpan Data
+        </button>
+
+        <button class="btn-warning"
+                onclick="loadData()">
+            🔄 Muat Data
+        </button>
+
+        <button class="btn-danger"
+                onclick="resetData()">
+            Reset
+        </button>
+
+    </div>
+
+    <div class="table-wrapper">
+
+        <table id="gradeTable">
+
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Tugas</th>
+                    <th>Formatif</th>
+                    <th>Sumatif</th>
+                    <th>PTS</th>
+                    <th>PAS</th>
+                    <th>Nilai Akhir</th>
+                    <th>Predikat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="gradeBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RAPOR ================= -->
+
+<section class="card report-card">
+
+    <div class="report">
+
+        <div class="report-watermark">
+            <img id="reportWatermark">
+        </div>
+
+        <div class="report-content">
+
+            <div class="school-header">
+
+                <h1 id="reportSchoolName">
+                    SMA NEGERI 118 JAKARTA
+                </h1>
+
+                <h2>LAPORAN HASIL BELAJAR PESERTA DIDIK</h2>
+
+                <p>
+                    Tahun Pelajaran
+                    <span id="reportYear">2026/2027</span>
+                </p>
+
+            </div>
+
+
+            <!-- DATA SISWA -->
+
+            <div class="student-info">
+
+                <div>
+                    <b>Nama Peserta Didik:</b>
+                    <span id="reportStudent">-</span>
+                </div>
+
+                <div>
+                    <b>Kelas:</b>
+                    <span id="reportClass">-</span>
+                </div>
+
+                <div>
+                    <b>NISN:</b>
+                    <span id="reportNisn">-</span>
+                </div>
+
+                <div>
+                    <b>Semester:</b>
+                    <span id="reportSemester">-</span>
+                </div>
+
+                <div>
+                    <b>Fase:</b>
+                    <span id="reportPhase">-</span>
+                </div>
+
+                <div>
+                    <b>Nama Orang Tua/Wali:</b>
+                    <span id="reportParent">-</span>
+                </div>
+
+            </div>
+
+
+            <!-- TABEL RAPOR -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Nilai Akhir</th>
+                            <th>Predikat</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="reportBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- RINGKASAN -->
+
+            <div class="summary">
+
+                <div class="summary-box">
+                    <span>Jumlah Mapel</span>
+                    <strong id="totalSubjects">0</strong>
+                </div>
+
+                <div class="summary-box">
+                    <span>Jumlah Nilai</span>
+                    <strong id="totalScore">0</strong>
+                </div>
+
+                <div class="summary-box">
+                    <span>Rata-rata</span>
+                    <strong id="averageScore">0</strong>
+                </div>
+
+                <div class="summary-box">
+                    <span>Predikat Rata-rata</span>
+                    <strong id="averageGrade">-</strong>
+                </div>
+
+            </div>
+
+
+            <!-- TANDA TANGAN -->
+
+            <div class="signature-grid">
+
+                <!-- ORANG TUA -->
+
+                <div class="signature">
+
+                    <p>Mengetahui,</p>
+                    <p>Orang Tua/Wali</p>
+
+                    <div class="signature-image">
+                        <img id="parentSignature"
+                             style="display:none;">
+                    </div>
+
+                    <div class="signature-line"></div>
+
+                    <b id="reportParentSignature">
+                        Nama Orang Tua/Wali
+                    </b>
+
+                </div>
+
+
+                <!-- WALI KELAS -->
+
+                <div class="signature">
+
+                    <p>Mengetahui,</p>
+                    <p>Wali Kelas</p>
+
+                    <div class="signature-image">
+                        <img id="teacherSignature"
+                             style="display:none;">
+                    </div>
+
+                    <div class="signature-line"></div>
+
+                    <b id="reportTeacher">
+                        Drs. Sarmili
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <!-- KEPALA SEKOLAH -->
+
+            <div class="headmaster">
+
+                <p>Mengetahui,</p>
+                <p>Kepala Sekolah</p>
+
+                <div class="signature-image">
+                    <img id="principalSignature"
+                         style="display:none;">
+                </div>
+
+                <div class="signature-line"></div>
+
+                <b id="reportPrincipal">
+                    Nama Kepala Sekolah
+                </b>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= UPLOAD TANDA TANGAN ================= -->
+
+<section class="card no-print">
+
+    <h2>✍️ Upload Tanda Tangan</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+            <label>Tanda Tangan Orang Tua/Wali</label>
+            <input type="file"
+                   id="parentSignatureInput"
+                   accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label>Tanda Tangan Wali Kelas</label>
+            <input type="file"
+                   id="teacherSignatureInput"
+                   accept="image/*">
+        </div>
+
+        <div class="form-group full">
+            <label>Tanda Tangan Kepala Sekolah</label>
+            <input type="file"
+                   id="principalSignatureInput"
+                   accept="image/*">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PRINT ================= -->
+
+<section class="card no-print">
+
+    <h2>🖨️ Cetak Dokumen</h2>
+
+    <div class="button-area">
+
+        <button class="btn-primary"
+                onclick="updateReport(); window.print();">
+            🖨️ Cetak Rapor
+        </button>
+
+        <button class="btn-success"
+                onclick="updateReport()">
+            🔄 Perbarui Rapor
+        </button>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<footer class="footer no-print">
+    Sistem Input Nilai Sekolah • Administrasi Peserta Didik
+</footer>
+
+
+<script>
+
+/* =====================================================
+   DATA MAPEL DEFAULT
+===================================================== */
+
+const defaultSubjects = [
+    "Pendidikan Agama",
+    "Pendidikan Pancasila",
+    "Bahasa Indonesia",
+    "Matematika",
+    "Bahasa Inggris",
+    "Sejarah",
+    "Geografi",
+    "Sosiologi",
+    "Ekonomi",
+    "PJOK",
+    "Seni dan Budaya",
+    "Informatika"
+];
+
+
+/* =====================================================
+   TAMBAH MAPEL
+===================================================== */
+
+function addSubject(name = "") {
+
+    const tbody = document.getElementById("gradeBody");
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+
+        <td class="number"></td>
+
+        <td class="subject-name">
+            <input type="text"
+                   class="subject"
+                   value="${name}"
+                   placeholder="Nama mata pelajaran">
+        </td>
+
+        <td>
+            <input type="number"
+                   class="task"
+                   min="0"
+                   max="100">
+        </td>
+
+        <td>
+            <input type="number"
+                   class="formative"
+                   min="0"
+                   max="100">
+        </td>
+
+        <td>
+            <input type="number"
+                   class="summative"
+                   min="0"
+                   max="100">
+        </td>
+
+        <td>
+            <input type="number"
+                   class="mid"
+                   min="0"
+                   max="100">
+        </td>
+
+        <td>
+            <input type="number"
+                   class="final"
+                   min="0"
+                   max="100">
+        </td>
+
+        <td class="final-score">0</td>
+
+        <td class="grade">-</td>
+
+        <td>
+            <button class="btn-danger"
+                    onclick="this.closest('tr').remove(); updateNumbers(); calculateAll();">
+                Hapus
+            </button>
+        </td>
+    `;
+
+    tbody.appendChild(row);
+
+    updateNumbers();
+}
+
+
+/* =====================================================
+   NOMOR BARIS
+===================================================== */
+
+function updateNumbers() {
+
+    const rows =
+        document.querySelectorAll("#gradeBody tr");
+
+    rows.forEach((row, index) => {
+
+        row.querySelector(".number")
+            .textContent = index + 1;
+
+    });
+}
+
+
+/* =====================================================
+   PREDIKAT
+===================================================== */
+
+function getGrade(score) {
+
+    if (score >= 90) return "A";
+    if (score >= 80) return "B";
+    if (score >= 70) return "C";
+    if (score >= 60) return "D";
+
+    return "E";
+}
+
+
+/* =====================================================
+   HITUNG NILAI
+===================================================== */
+
+function calculateAll() {
+
+    const rows =
+        document.querySelectorAll("#gradeBody tr");
+
+    rows.forEach(row => {
+
+        const task =
+            Number(row.querySelector(".task").value) || 0;
+
+        const formative =
+            Number(row.querySelector(".formative").value) || 0;
+
+        const summative =
+            Number(row.querySelector(".summative").value) || 0;
+
+        const mid =
+            Number(row.querySelector(".mid").value) || 0;
+
+        const final =
+            Number(row.querySelector(".final").value) || 0;
+
+        /*
+          Bobot:
+          Tugas       = 15%
+          Formatif    = 15%
+          Sumatif     = 25%
+          PTS         = 20%
+          PAS         = 25%
+        */
+
+        const result =
+            (task * 0.15) +
+            (formative * 0.15) +
+            (summative * 0.25) +
+            (mid * 0.20) +
+            (final * 0.25);
+
+        const score =
+            Math.round(result * 100) / 100;
+
+        row.querySelector(".final-score")
+            .textContent = score;
+
+        row.querySelector(".grade")
+            .textContent = getGrade(score);
+
+    });
+
+    updateReport();
+}
+
+
+/* =====================================================
+   UPDATE RAPOR
+===================================================== */
+
+function updateReport() {
+
+    document.getElementById("reportSchoolName")
+        .textContent =
+        document.getElementById("schoolName").value ||
+        "NAMA SEKOLAH";
+
+    document.getElementById("reportYear")
+        .textContent =
+        document.getElementById("schoolYear").value;
+
+    document.getElementById("reportStudent")
+        .textContent =
+        document.getElementById("studentName").value || "-";
+
+    document.getElementById("reportClass")
+        .textContent =
+        document.getElementById("className").value || "-";
+
+    document.getElementById("reportNisn")
+        .textContent =
+        document.getElementById("nisn").value || "-";
+
+    document.getElementById("reportSemester")
+        .textContent =
+        document.getElementById("semester").value;
+
+    document.getElementById("reportPhase")
+        .textContent =
+        document.getElementById("phase").value || "-";
+
+    document.getElementById("reportParent")
+        .textContent =
+        document.getElementById("parentName").value || "-";
+
+    document.getElementById("reportParentSignature")
+        .textContent =
+        document.getElementById("parentName").value ||
+        "Nama Orang Tua/Wali";
+
+    document.getElementById("reportTeacher")
+        .textContent =
+        document.getElementById("homeroomTeacher").value ||
+        "Nama Wali Kelas";
+
+    document.getElementById("reportPrincipal")
+        .textContent =
+        document.getElementById("principalName").value ||
+        "Nama Kepala Sekolah";
+
+
+    /* ================= TABEL RAPOR ================= */
+
+    const reportBody =
+        document.getElementById("reportBody");
+
+    reportBody.innerHTML = "";
+
+    const rows =
+        document.querySelectorAll("#gradeBody tr");
+
+    let total = 0;
+
+    let count = 0;
+
+    rows.forEach((row, index) => {
+
+        const subject =
+            row.querySelector(".subject").value ||
+            "Mata Pelajaran";
+
+        const score =
+            Number(
+                row.querySelector(".final-score").textContent
+            ) || 0;
+
+        const grade =
+            getGrade(score);
+
+        const tr =
+            document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td style="text-align:left;">
+                ${subject}
+            </td>
+            <td>${score}</td>
+            <td>${grade}</td>
+        `;
+
+        reportBody.appendChild(tr);
+
+        total += score;
+        count++;
+
+    });
+
+
+    /* ================= SUMMARY ================= */
+
+    const average =
+        count > 0 ? total / count : 0;
+
+    document.getElementById("totalSubjects")
+        .textContent = count;
+
+    document.getElementById("totalScore")
+        .textContent = Math.round(total * 100) / 100;
+
+    document.getElementById("averageScore")
+        .textContent =
+        Math.round(average * 100) / 100;
+
+    document.getElementById("averageGrade")
+        .textContent =
+        count > 0 ? getGrade(average) : "-";
+}
+
+
+/* =====================================================
+   WATERMARK
+===================================================== */
+
+document.getElementById("watermarkInput")
+.addEventListener("change", function(e) {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(event) {
+
+        const src =
+            event.target.result;
+
+        const preview =
+            document.getElementById("watermarkPreview");
+
+        preview.src = src;
+        preview.style.display = "block";
+
+        document.getElementById("watermarkText")
+            .style.display = "none";
+
+        document.getElementById("reportWatermark")
+            .src = src;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+function removeWatermark() {
+
+    document.getElementById("watermarkPreview")
+        .style.display = "none";
+
+    document.getElementById("watermarkText")
+        .style.display = "block";
+
+    document.getElementById("reportWatermark")
+        .removeAttribute("src");
+
+    document.getElementById("watermarkInput")
+        .value = "";
+
+}
+
+
+/* =====================================================
+   TANDA TANGAN
+===================================================== */
+
+function setupSignature(inputId, imageId) {
+
+    document.getElementById(inputId)
+    .addEventListener("change", function(e) {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        const reader =
+            new FileReader();
+
+        reader.onload = function(event) {
+
+            const image =
+                document.getElementById(imageId);
+
+            image.src =
+                event.target.result;
+
+            image.style.display =
+                "block";
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+setupSignature(
+    "parentSignatureInput",
+    "parentSignature"
+);
+
+setupSignature(
+    "teacherSignatureInput",
+    "teacherSignature"
+);
+
+setupSignature(
+    "principalSignatureInput",
+    "principalSignature"
+);
+
+
+/* =====================================================
+   SIMPAN DATA
+===================================================== */
+
+function saveData() {
+
+    const data = {
+
+        schoolName:
+            document.getElementById("schoolName").value,
+
+        npsn:
+            document.getElementById("npsn").value,
+
+        schoolAddress:
+            document.getElementById("schoolAddress").value,
+
+        schoolYear:
+            document.getElementById("schoolYear").value,
+
+        semester:
+            document.getElementById("semester").value,
+
+        studentName:
+            document.getElementById("studentName").value,
+
+        nisn:
+            document.getElementById("nisn").value,
+
+        nis:
+            document.getElementById("nis").value,
+
+        className:
+            document.getElementById("className").value,
+
+        phase:
+            document.getElementById("phase").value,
+
+        gender:
+            document.getElementById("gender").value,
+
+        birthPlace:
+            document.getElementById("birthPlace").value,
+
+        birthDate:
+            document.getElementById("birthDate").value,
+
+        parentName:
+            document.getElementById("parentName").value,
+
+        homeroomTeacher:
+            document.getElementById("homeroomTeacher").value,
+
+        principalName:
+            document.getElementById("principalName").value
+
+    };
+
+    localStorage.setItem(
+        "schoolGradeData",
+        JSON.stringify(data)
+    );
+
+    alert("Data berhasil disimpan di browser.");
+}
+
+
+/* =====================================================
+   LOAD DATA
+===================================================== */
+
+function loadData() {
+
+    const saved =
+        localStorage.getItem("schoolGradeData");
+
+    if (!saved) {
+
+        alert("Belum ada data yang tersimpan.");
+
+        return;
+    }
+
+    const data =
+        JSON.parse(saved);
+
+    Object.keys(data).forEach(key => {
+
+        const element =
+            document.getElementById(key);
+
+        if (element) {
+            element.value = data[key];
+        }
+
+    });
+
+    updateReport();
+
+    alert("Data berhasil dimuat.");
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetData() {
+
+    if (!confirm(
+        "Yakin ingin menghapus semua data?"
+    )) return;
+
+    localStorage.removeItem(
+        "schoolGradeData"
+    );
+
+    location.reload();
+}
+
+
+/* =====================================================
+   DATA MAPEL DEFAULT
+===================================================== */
+
+window.onload = function() {
+
+    defaultSubjects.forEach(subject => {
+
+        addSubject(subject);
+
+    });
+
+    updateReport();
+
+};
+
+</script>
+
+</body>
+</html>
